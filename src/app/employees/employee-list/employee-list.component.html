@@ -1,0 +1,45 @@
+<nz-table
+  #basicTable
+  [nzData]="employeesList"
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [(nzPageIndex)]="curPage"
+  [nzPageSize]="pagesize"
+  (nzPageIndexChange)="fetchData()"
+  [nzLoading]="isLoading"
+>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>姓名</th>
+      <th>性别</th>
+      <th>手机号</th>
+      <th>邮箱</th>
+      <th>入职时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let data of basicTable.data; let i = index; trackBy: trackByEmpId"
+    >
+      <td>{{ i }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.gender === "1" ? "男" : "女" }}</td>
+      <td>{{ data.phoneNumber }}</td>
+      <td>{{ data.email }}</td>
+      <!-- | 是angular中的管道，作用：用来进行数据格式化 -->
+      <td>{{ data.joinDate | date: "yyyy-MM-dd" }}</td>
+      <td>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a
+          nz-popconfirm
+          nzPopconfirmTitle="您确认要删除该员工吗？"
+          (nzOnConfirm)="handleDelete(data.id)"
+          (nzOnCancel)="handleDelCancel()"
+          >删除</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

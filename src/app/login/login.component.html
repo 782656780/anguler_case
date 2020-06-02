@@ -1,0 +1,92 @@
+<div
+  class="login-wrapper"
+  nz-row
+  nzType="flex"
+  nzJustify="space-around"
+  nzAlign="middle"
+>
+  <form
+    nz-form
+    [formGroup]="loginForm"
+    class="login-form"
+    (ngSubmit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="userErrorTpl">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="userName"
+            placeholder="请输入用户名"
+          />
+        </nz-input-group>
+        <ng-template #userErrorTpl let-control>
+          <ng-container
+            *ngIf="
+              loginForm.get('userName').dirty &&
+              loginForm.get('userName').hasError('required')
+            "
+          >
+            请输入用户名
+          </ng-container>
+          <ng-container
+            *ngIf="
+              loginForm.get('userName').dirty &&
+              (loginForm.get('userName').hasError('minlength') ||
+                loginForm.get('userName').hasError('maxlength'))
+            "
+          >
+            用户名长度为3-6位
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="passwordErrorTpl">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="请输入密码"
+          />
+        </nz-input-group>
+        <ng-template #passwordErrorTpl let-control>
+          <ng-container
+            *ngIf="
+              loginForm.get('password').dirty &&
+              loginForm.get('password').hasError('required')
+            "
+            >请输入密码</ng-container
+          >
+          <ng-container
+            *ngIf="
+              loginForm.get('password').dirty &&
+              loginForm.get('password').hasError('pattern')
+            "
+            >密码只能由数字、字母组成，长度为3-6位</ng-container
+          >
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox>
+          <span>记住我</span>
+        </label>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <a class="login-form-forgot">忘记密码</a>
+      </div>
+    </div>
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+    >
+      登录
+    </button>
+    或者 <a>马上去注册!</a>
+  </form>
+</div>
