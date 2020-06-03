@@ -26,4 +26,18 @@ export class EmployessService {
     return this.http.delete(`${URL}/employees/${id}`, {
     });
   }
+  // 添加员工
+  addEmployee(employee: Employee) {
+    return this.http.post(`${URL}/employees`, employee);
+  }
+
+  // 根据id查询员工信息
+  getEmployeeById(id: number) {
+    return this.http.get<Employee>(`${URL}/employees/${id}`);
+  }
+
+  // 根据员工id更新员工
+  updateEmployeeById(id: number, params: Employee) {
+    return this.http.patch<Employee>(`${URL}/employees/${id}`, params);
+  }
 }
